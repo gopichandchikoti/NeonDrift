@@ -1,0 +1,53 @@
+{
+  "name": "neon-drift",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Neon Drift: a one-thumb neon arcade drifting game for the browser and Android.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "start": "vite",
+    "build": "npm run levels:check && tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "node tests/e2e/run.mjs",
+    "levels:check": "tsx scripts/validate-levels/check.ts",
+    "levels:calibrate": "tsx scripts/validate-levels/calibrate.ts",
+    "levels:report": "tsx scripts/validate-levels/report.ts",
+    "android:icons": "node scripts/build-android/make-icons.mjs",
+    "android:sync": "npm run build && cap sync android",
+    "android:apk": "node scripts/build-android/build-apk.mjs",
+    "android:verify": "node tests/android/verify.mjs",
+    "verify:artifacts": "node scripts/verify-artifacts/verify.mjs",
+    "levels:daily": "tsx scripts/validate-levels/daily-check.ts",
+    "levels:daily-seeds": "tsx scripts/validate-levels/daily-seeds.ts"
+  },
+  "dependencies": {
+    "@capacitor/app": "8.1.2",
+    "@capacitor/core": "8.6.0",
+    "@capacitor/haptics": "8.0.2",
+    "@fontsource-variable/manrope": "5.3.0",
+    "@fontsource-variable/unbounded": "5.3.0",
+    "phaser": "3.90.0"
+  },
+  "devDependencies": {
+    "@capacitor/android": "8.6.0",
+    "@capacitor/cli": "8.6.0",
+    "@eslint/js": "9.39.5",
+    "@types/node": "22.20.5",
+    "@vitest/coverage-v8": "5.1.0",
+    "axe-core": "4.14.0",
+    "eslint": "9.39.5",
+    "eslint-plugin-sonarjs": "4.2.2",
+    "jsdom": "25.0.1",
+    "playwright-core": "1.64.1",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.1",
+    "vite": "8.3.5",
+    "vitest": "5.1.0"
+  }
+}

@@ -1,0 +1,313 @@
+/* In-run heads-up display. Everything here stays out of the middle of the screen so the road is never covered. */
+.hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hud > * {
+  pointer-events: none;
+}
+
+.hud button {
+  pointer-events: auto;
+}
+
+.hud__top {
+  position: absolute;
+  left: var(--s3);
+  right: var(--s3);
+  top: calc(var(--safe-top) + var(--s3));
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s3);
+}
+
+.hud__score {
+  flex: 1;
+  min-width: 0;
+}
+
+.hud__score output {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.7rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 1rem rgb(55 226 255 / 45%), 0 0.1rem 0.4rem #000;
+}
+
+.hud__label {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-shadow: 0 0.1rem 0.3rem #000;
+}
+
+.combo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  min-width: 4.6rem;
+}
+
+.combo__level {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--yellow);
+  text-shadow: 0 0 1rem rgb(255 243 107 / 50%), 0 0.1rem 0.4rem #000;
+  transition: transform var(--t-fast) var(--ease);
+}
+
+.combo--pop .combo__level {
+  transform: scale(1.35);
+}
+
+.combo__pips {
+  display: flex;
+  gap: 0.25rem;
+  margin-top: 0.3rem;
+}
+
+.combo__pips i {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  border: 0.12rem solid var(--yellow);
+}
+
+.combo__pips i.on {
+  background: var(--yellow);
+}
+
+.combo__decay {
+  width: 4.2rem;
+  height: 0.22rem;
+  margin-top: 0.3rem;
+  border-radius: 1rem;
+  background: rgb(255 255 255 / 15%);
+  overflow: hidden;
+}
+
+.combo__decay span {
+  display: block;
+  height: 100%;
+  background: var(--yellow);
+}
+
+.hud__pause {
+  pointer-events: auto;
+  background: rgb(18 15 29 / 82%);
+}
+
+.hud__bar {
+  position: absolute;
+  left: var(--s3);
+  right: var(--s3);
+  top: calc(var(--safe-top) + 4.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.meter {
+  height: 0.34rem;
+  border-radius: 1rem;
+  background: rgb(255 255 255 / 16%);
+  overflow: hidden;
+}
+
+.meter span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta));
+}
+
+.objective {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  font-size: 0.78rem;
+  text-shadow: 0 0.1rem 0.3rem #000;
+}
+
+.objective--met {
+  color: var(--lime);
+}
+
+.objective .meter {
+  flex: 1;
+}
+
+.hud__status {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.hud__status .chip {
+  min-height: 1.7rem;
+  font-size: 0.72rem;
+}
+
+.chip--shield {
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+
+.chip--magnet {
+  border-color: var(--magenta);
+  color: var(--magenta);
+}
+
+.hud__bottom {
+  position: absolute;
+  left: var(--s3);
+  right: var(--s3);
+  bottom: calc(var(--safe-bottom) + var(--s3));
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--s3);
+}
+
+.boost {
+  position: relative;
+  width: 4.6rem;
+  height: 4.6rem;
+  margin-left: auto;
+  border: 0.18rem solid var(--line);
+  border-radius: 50%;
+  background: rgb(18 15 29 / 85%);
+  color: var(--text-dim);
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  --fill: 0;
+  background-image: conic-gradient(var(--cyan) calc(var(--fill) * 1turn), rgb(255 255 255 / 10%) 0);
+}
+
+.boost::before {
+  content: '';
+  position: absolute;
+  inset: 0.28rem;
+  border-radius: 50%;
+  background: #120f1d;
+}
+
+.boost svg {
+  position: relative;
+  width: 1.7rem;
+  height: 1.7rem;
+}
+
+.boost--ready {
+  border-color: var(--yellow);
+  color: var(--yellow);
+  animation: pulse 0.9s ease-in-out infinite;
+}
+
+.boost--active {
+  color: #fff;
+  border-color: #fff;
+}
+
+.steer {
+  width: 5.4rem;
+  height: 5.4rem;
+  border-radius: 1.4rem;
+  border: 0.15rem solid var(--cyan);
+  background: rgb(18 15 29 / 60%);
+  color: var(--cyan);
+  display: grid;
+  place-items: center;
+  touch-action: none;
+}
+
+.steer svg {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.steer:active,
+.steer.down {
+  background: rgb(55 226 255 / 30%);
+}
+
+.hint {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--safe-top) + 8.6rem);
+  max-width: 82%;
+  transform: translateX(-50%);
+  padding: 0.6rem 1rem;
+  border: 0.1rem solid var(--cyan);
+  border-radius: var(--radius-s);
+  background: rgb(7 6 13 / 82%);
+  font-size: 0.95rem;
+  text-align: center;
+  animation: fade-in 200ms var(--ease);
+}
+
+.popups {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.popup {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  text-shadow: 0 0 0.6rem currentcolor, 0 0.1rem 0.3rem #000;
+  animation: popup 0.9s var(--ease) forwards;
+}
+
+.popup--near { color: #fff; }
+.popup--kiss { color: var(--cyan); }
+.popup--drift { color: var(--magenta); }
+.popup--pass { color: var(--lime); }
+.popup--spark { color: var(--yellow); font-size: 0.7rem; }
+
+.flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.flash--on {
+  animation: flash 0.5s ease-out;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 55%, transparent 55%, rgb(0 0 0 / 55%) 100%);
+}
+
+@keyframes popup {
+  0% { opacity: 0; transform: translate(-50%, -30%) scale(0.7); }
+  15% { opacity: 1; transform: translate(-50%, -80%) scale(1.1); }
+  100% { opacity: 0; transform: translate(-50%, -260%) scale(1); }
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0.6rem rgb(255 243 107 / 40%); }
+  50% { box-shadow: 0 0 1.6rem rgb(255 243 107 / 85%); }
+}
+
+@keyframes flash {
+  0% { opacity: 0.65; }
+  100% { opacity: 0; }
+}

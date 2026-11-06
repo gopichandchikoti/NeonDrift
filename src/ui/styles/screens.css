@@ -1,0 +1,447 @@
+/* Full-screen views. Each sits over the live game scene, which keeps playing an autopilot demo behind it. */
+.screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+  padding: calc(var(--safe-top) + var(--s4)) var(--s4) calc(var(--safe-bottom) + var(--s4));
+  background: linear-gradient(180deg, rgb(7 6 13 / 90%), rgb(7 6 13 / 82%) 55%, rgb(7 6 13 / 92%));
+  overflow-y: auto;
+  animation: screen-in var(--t-screen) var(--ease);
+}
+
+.screen--clear {
+  background: linear-gradient(180deg, rgb(7 6 13 / 55%), rgb(7 6 13 / 15%) 40%, rgb(7 6 13 / 75%));
+}
+
+.screen__head {
+  display: flex;
+  align-items: center;
+  gap: var(--s3);
+}
+
+.screen__head h1 {
+  flex: 1;
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.screen__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s3);
+}
+
+@keyframes screen-in {
+  from { opacity: 0; transform: translateY(0.6rem); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Main menu */
+.logo {
+  margin: var(--s5) 0 0;
+  font-size: 2.6rem;
+  line-height: 0.95;
+  font-style: italic;
+  text-shadow: 0 0 1.6rem rgb(55 226 255 / 35%);
+}
+
+.logo span {
+  display: block;
+  color: var(--cyan);
+}
+
+.logo b {
+  display: block;
+  color: var(--magenta);
+  text-shadow: 0 0 1.6rem rgb(255 63 164 / 55%);
+}
+
+.tagline {
+  margin: var(--s2) 0 0;
+  color: var(--text);
+  text-shadow: 0 0.1rem 0.5rem #000;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.menu__spacer {
+  flex: 1 1 auto;
+  min-height: var(--s3);
+}
+
+.menu__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s2);
+}
+
+.menu__grid .btn {
+  min-height: 3.4rem;
+  justify-content: flex-start;
+  font-size: 0.74rem;
+}
+
+.menu__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.menu__foot .row {
+  display: flex;
+  gap: var(--s2);
+}
+
+.menu__best {
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* District and stage select */
+.tabs {
+  display: flex;
+  gap: var(--s2);
+  overflow-x: auto;
+  padding: 0.2rem 0 0.4rem;
+  scrollbar-width: none;
+}
+
+.tab {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.75rem;
+  padding: 0.3rem 0.85rem;
+  border: 0.12rem solid var(--control);
+  border-radius: 99rem;
+  background: var(--panel);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tab[aria-selected='true'] {
+  border-color: var(--accent, var(--cyan));
+  box-shadow: 0 0 0.9rem color-mix(in srgb, var(--accent, var(--cyan)) 40%, transparent);
+}
+
+.tab[aria-disabled='true'] {
+  opacity: 0.5;
+}
+
+.dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  background: var(--accent, var(--cyan));
+  box-shadow: 0 0 0.5rem var(--accent, var(--cyan));
+}
+
+.district-card h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.district-card p {
+  margin: 0.25rem 0 0;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+.district-card .teach {
+  color: var(--accent, var(--cyan));
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stage-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+  min-height: 4.6rem;
+  padding: 0.6rem 0.75rem;
+  border: 0.12rem solid var(--control);
+  border-radius: var(--radius-s);
+  background: var(--panel);
+  text-align: left;
+  cursor: pointer;
+}
+
+.tile:hover {
+  border-color: var(--accent, var(--cyan));
+}
+
+.tile[aria-disabled='true'] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tile__num {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  color: var(--accent, var(--cyan));
+}
+
+.tile__name {
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.tile__stars {
+  display: flex;
+  gap: 0.15rem;
+  font-size: 0.8rem;
+  align-items: center;
+}
+
+.tile--current {
+  border-color: var(--yellow);
+}
+
+/* Garage */
+.garage__stage {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+}
+
+.garage__car {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--s4);
+  border: 0.1rem solid var(--line);
+  border-radius: var(--radius);
+  background: radial-gradient(circle at 50% 40%, rgb(55 226 255 / 12%), transparent 70%), var(--panel);
+}
+
+.garage__car svg {
+  /* Drawn lying down (forward is right), then stood up. The margins make room for the turned shape. */
+  width: 9rem;
+  height: 5.3rem;
+  margin: 1.9rem 0;
+  transform: rotate(-90deg);
+  filter: drop-shadow(0 0 0.8rem var(--glow, #37e2ff));
+}
+
+.garage__car h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s2);
+}
+
+.swatch {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0.35rem 0.6rem;
+  border: 0.12rem solid var(--control);
+  border-radius: var(--radius-s);
+  background: var(--panel);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.swatch[aria-pressed='true'] {
+  border-color: var(--yellow);
+}
+
+.swatch[aria-disabled='true'] {
+  opacity: 0.55;
+}
+
+.swatch i {
+  flex: 0 0 auto;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  border: 0.12rem solid #fff;
+}
+
+/* Lists (achievements, how to play, credits) */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row-card {
+  display: flex;
+  gap: var(--s3);
+  align-items: center;
+  padding: 0.7rem 0.85rem;
+  border: 0.1rem solid var(--line);
+  border-radius: var(--radius-s);
+  background: var(--panel);
+}
+
+.row-card--done {
+  border-color: var(--lime);
+}
+
+.row-card b {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.row-card small {
+  color: var(--text-dim);
+  font-weight: 500;
+}
+
+.prose h2 {
+  margin: var(--s3) 0 var(--s1);
+  font-size: 0.95rem;
+  color: var(--cyan);
+}
+
+.prose p,
+.prose li {
+  margin: 0 0 var(--s2);
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.prose ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.legend {
+  display: grid;
+  grid-template-columns: 2.4rem 1fr;
+  gap: var(--s2) var(--s3);
+  align-items: center;
+}
+
+.legend svg {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+/* Results */
+.results {
+  justify-content: flex-end;
+  text-align: center;
+}
+
+.results__title {
+  margin: 0;
+  font-size: 1.8rem;
+  font-style: italic;
+}
+
+.results__title--good {
+  color: var(--lime);
+}
+
+.results__title--bad {
+  color: var(--danger);
+}
+
+.results__score {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2.6rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.results__stars {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 2rem;
+}
+
+.results__stars .star {
+  animation: star-pop 420ms var(--ease) both;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--s2);
+  margin: 0;
+}
+
+.stats div {
+  padding: 0.5rem 0.25rem;
+  border: 0.1rem solid var(--line);
+  border-radius: var(--radius-s);
+  background: rgb(18 15 29 / 85%);
+}
+
+.stats dt {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.stats dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.banner {
+  padding: 0.55rem 0.75rem;
+  border: 0.1rem solid var(--yellow);
+  border-radius: var(--radius-s);
+  background: rgb(255 243 107 / 8%);
+  font-size: 0.82rem;
+}
+
+.results__actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s2);
+}
+
+.results__actions .row {
+  display: flex;
+  gap: var(--s2);
+}
+
+.results__actions .row .btn {
+  flex: 1;
+}
+
+@keyframes star-pop {
+  from { transform: scale(0.2) rotate(-30deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}

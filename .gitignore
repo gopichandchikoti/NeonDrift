@@ -1,0 +1,23 @@
+node_modules/
+dist/
+coverage/
+artifacts/
+tests/e2e/output/
+tests/android/output/
+*.log
+.DS_Store
+Thumbs.db
+
+# Android build outputs and machine-specific files (the native project itself is committed).
+android/.gradle/
+android/build/
+android/app/build/
+android/capacitor-cordova-android-plugins/build/
+android/local.properties
+android/keystore.properties
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+android/app/src/main/res/xml/config.xml
+*.keystore
+*.jks

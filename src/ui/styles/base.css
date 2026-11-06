@@ -1,0 +1,126 @@
+/* Design tokens. Every colour is a role; dark is the only theme (the game is a night city). */
+:root {
+  --asphalt: #07060d;
+  --panel: #120f1d;
+  --panel-2: #1a1628;
+  --line: #2f2947;
+  /* Outlines of things you can press: at least 3:1 against every surface (WCAG 1.4.11). */
+  --control: #6a5f94;
+  --text: #f2eeff;
+  --text-dim: #b4aacd;
+  --cyan: #37e2ff;
+  --magenta: #ff3fa4;
+  --yellow: #fff36b;
+  --lime: #b6ff3b;
+  --danger: #ff5a6e;
+  --focus: #fff36b;
+  --radius: 1.1rem;
+  --radius-s: 0.7rem;
+  --s1: 0.25rem;
+  --s2: 0.5rem;
+  --s3: 0.75rem;
+  --s4: 1rem;
+  --s5: 1.5rem;
+  --s6: 2rem;
+  --font-display: 'Unbounded Variable', 'Arial Black', system-ui, sans-serif;
+  --font-body: 'Manrope Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --t-fast: 140ms;
+  --t-screen: 260ms;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--asphalt);
+  color: var(--text);
+  font-family: var(--font-body);
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#app {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+#game {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+}
+
+#game canvas {
+  display: block;
+  touch-action: none;
+}
+
+/* The interface layer sits exactly over the canvas; layout.ts sets its box and font size. */
+.ui {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ui > * {
+  pointer-events: auto;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Headings receive focus from code when a screen opens (for screen readers); they need no visible ring. */
+[tabindex='-1']:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 0.19rem solid var(--focus);
+  outline-offset: 0.15rem;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-motion='system'] *,
+  html[data-motion='system'] *::before,
+  html[data-motion='system'] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html[data-motion='reduce'] *,
+html[data-motion='reduce'] *::before,
+html[data-motion='reduce'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}

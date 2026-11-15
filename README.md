@@ -8,6 +8,7 @@ near misses, and pickups to build your score and unlock cosmetic cars.
 
 The browser game and Android APK share the same TypeScript simulation and Phaser renderer. Progress stays on
 your device. There are no accounts, ads, analytics, purchases, or online leaderboards.
+**Live demo:** https://neon-drift.vercel.app
 
 ## Run locally
 
